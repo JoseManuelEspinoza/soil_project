@@ -1,0 +1,53 @@
+
+{% if cultivos %}
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre del Cultivo</th>
+            <th>pH Mínimo</th>
+            <th>pH Máximo</th>
+            <th>Fósforo Mínimo</th>
+            <th>Fósforo Máximo</th>
+            <th>Potasio Mínimo</th>
+            <th>Potasio Máximo</th>
+            <th>Nitrógeno Mínimo</th>
+            <th>Nitrógeno Máximo</th>
+            <th>Conductividad Mínima</th>
+            <th>Conductividad Máxima</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cultivo in cultivos %}
+        <tr>
+            <td>{{ cultivo.id }}</td>
+            <td>{{ cultivo.nombre_cultivo }}</td>
+            <td>{{ cultivo.ph_min }}</td>
+            <td>{{ cultivo.ph_max }}</td>
+            <td>{{ cultivo.fosforo_min }}</td>
+            <td>{{ cultivo.fosforo_max }}</td>
+            <td>{{ cultivo.potasio_min }}</td>
+            <td>{{ cultivo.potasio_max }}</td>
+            <td>{{ cultivo.nitrogeno_min }}</td>
+            <td>{{ cultivo.nitrogeno_max }}</td>
+            <td>{{ cultivo.conductividad_min }}</td>
+            <td>{{ cultivo.conductividad_max }}</td>
+            <td>
+                <a href="{% url 'editCultivo' cultivo.id %}">
+                    <button>Editar</button>
+                </a>
+            </td>
+            <td>
+                <form method="POST" action="{% url 'deleteCultivo' cultivo.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="background-color: red; color: white;">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No hay cultivos disponibles.</p>
+{% endif %}

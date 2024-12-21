@@ -47,6 +47,8 @@
     </style>
 </head>
 <body>
+    {% extends 'cultivos/base.html' %}
+    {% block content %}
     <h1>Crear Nuevo Cultivo</h1>
     <form method="post" action="">
         {% csrf_token %}
@@ -56,5 +58,6 @@
         <!-- Botón de envío -->
         <button type="submit">Guardar Cultivo</button>
     </form>
+    {% endblock %}
 </body>
 </html>

@@ -1,0 +1,26 @@
+
+{% extends 'sensores/base.html' %}
+
+{% block content %}
+    <header>
+        <h1>Lista de Sensores</h1>
+    </header>
+
+    <main>
+        <input type="text" id="search" placeholder="Buscar sensor" onkeyup="searchSensor()">
+        <button>Buscar Sensor</button>
+        <a href="{% url 'createSensor' %}"><button>Agregar Sensor</button></a>
+        <div id="sensor-table">
+            {% include 'sensores/sensores_table.html'%}
+        </div>
+           
+    </main>
+    <script>
+        function searchSensor(){
+            const query = document.getElementById('search').value;
+            fetch(`/sensores/search/?q=${query}`).then(response=>response.text()).then(data=>{
+                document.getElementById('sensor-table').innerHTML=data;
+            })
+        }
+    </script>
+{% endblock %}

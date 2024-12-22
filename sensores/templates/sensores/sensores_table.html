@@ -1,0 +1,38 @@
+
+{% if sensores %}
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Modelo</th>
+            <th>Precision</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sensor in sensores %}
+        <tr>
+            <td>{{ sensor.id }}</td>
+            <td>{{ sensor.nombre}}</td>
+            <td>{{ sensor.tipo }}</td>
+            <td>{{ sensor.modelo }}</td>
+            <td>{{ sensor.precision }}</td>
+
+            <td>
+                <a href="{% url 'editSensor' sensor.id %}">
+                    <button>Editar</button>
+                </a>
+            </td>
+            <td>
+                <form method="POST" action="{% url 'deleteSensor' sensor.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="background-color: red; color: white;">Eliminar</button>
+                </form>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No hay Sensores disponibles</p>
+{% endif %}

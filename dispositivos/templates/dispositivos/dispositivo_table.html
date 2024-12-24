@@ -1,0 +1,17 @@
+<ul>
+    {% for dispositivo in dispositivos %}
+        <li>
+            {{ dispositivo.nombre }} ({{ dispositivo.tipo }})
+            <ul>
+                {% for sensor in dispositivo.sensores %}
+                    <li>{{ sensor.nombre }} - {{ sensor.tipo }} - {{ sensor.precision }}</li>
+                {% endfor %}
+            </ul>
+            <a href="{% url 'editDispositivo' dispositivo.id %}"><button>Editar</button></a>
+            <a href="{% url 'deleteDispositivo' dispositivo.id %}"><button>Eliminar</button></a>
+        </li>
+    {% endfor %}
+</ul>
+{% if dispositivos|length == 0 %}
+    <p>No se encontraron dispositivos.</p>
+{% endif %}

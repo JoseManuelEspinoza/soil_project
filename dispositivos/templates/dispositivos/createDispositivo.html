@@ -1,0 +1,26 @@
+
+{% include 'dispositivos/base.html' %}
+
+{% block content %}
+<h2>Crear Dispositivo</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required>
+
+    <label for="tipo">Tipo:</label>
+    <input type="text" id="tipo" name="tipo" required>
+
+    <label>Sensores:</label>
+    <ul>
+        {% for sensor in sensores %}
+            <li>
+                <input type="checkbox" name="sensores" value="{{ sensor.id }}">
+                {{ sensor.nombre }} ({{ sensor.tipo }})
+            </li>
+        {% endfor %}
+    </ul>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+{% endblock %}

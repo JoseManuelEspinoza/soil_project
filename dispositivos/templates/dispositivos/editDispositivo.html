@@ -1,0 +1,21 @@
+<form method="post">
+    {% csrf_token %}
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" value="{{ dispositivo.nombre }}" required>
+    
+    <label for="tipo">Tipo:</label>
+    <input type="text" id="tipo" name="tipo" value="{{ dispositivo.tipo }}" required>
+    
+    <label for="sensores">Sensores:</label>
+    <div>
+        {% for sensor in sensores %}
+            <label>
+                <input type="checkbox" name="sensores" value="{{ sensor.id }}"
+                {% if sensor.id in sensores_seleccionados_ids %}checked{% endif %}>
+                {{ sensor.nombre }} ({{ sensor.tipo }})
+            </label><br>
+        {% endfor %}
+    </div>
+    
+    <button type="submit">Guardar</button>
+</form>

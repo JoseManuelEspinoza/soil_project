@@ -1,0 +1,26 @@
+<form method="post">
+    {% csrf_token %}
+    <label for="nitrogeno">Valor Nitrógeno:</label>
+    <input type="number" step="0.01" id="nitrogeno" name="nitrogeno" required><br>
+
+    <label for="potasio">Valor Potasio:</label>
+    <input type="number" step="0.01" id="potasio" name="potasio" required><br>
+
+    <label for="fosforo">Valor Fósforo:</label>
+    <input type="number" step="0.01" id="fosforo" name="fosforo" required><br>
+
+    <label for="ph">Valor pH:</label>
+    <input type="number" step="0.01" id="ph" name="ph" required><br>
+
+    <label for="conductividad">Valor Conductividad:</label>
+    <input type="number" step="0.01" id="conductividad" name="conductividad" required><br>
+
+    <label for="dispositivo">Dispositivo:</label>
+    <select id="dispositivo" name="dispositivo" required>
+        {% for dispositivo in dispositivos %}
+        <option value="{{ dispositivo.id }}">{{ dispositivo.nombre }}</option>
+        {% endfor %}
+    </select><br>
+
+    <button type="submit">Guardar</button>
+</form>

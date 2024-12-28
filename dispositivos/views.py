@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Dispositivo,SensorEmbebido
 from sensores.models import Sensor
 from bson import ObjectId
+from django.contrib import messages
 # Create your views here.
 # dispositivos/views.py
 def createDispositivo(request):
@@ -30,6 +31,7 @@ def createDispositivo(request):
             tipo=tipo,
             sensores=sensores_embebidos
         )
+        messages.success(request, 'El dispositivo se ha guardado correctamente.')  # Mensaje de éxito
         return redirect('listDispositivo')
 
     # GET
@@ -68,6 +70,7 @@ def editDispositivo(request, id):
         dispositivo.tipo = tipo
         dispositivo.sensores = sensores_embebidos
         dispositivo.save()
+        messages.success(request, 'El dispositivo se ha actualizado correctamente.')  # Mensaje de éxito
 
         return redirect('listDispositivo')
 
@@ -80,9 +83,13 @@ def editDispositivo(request, id):
         'sensores_seleccionados_ids': sensores_seleccionados_ids,
     })
 
-def deleteDispositivo(request,id):
-    dispositivo =Dispositivo.objects.get(id=ObjectId(id))
-    dispositivo.delete()
+def deleteDispositivo(request, id):
+    try:
+        dispositivo = get_object_or_404(Dispositivo, id=ObjectId(id))
+        dispositivo.delete()
+        messages.success(request, 'El dispositivo se ha eliminado correctamente.')
+    except Exception as e:
+        messages.error(request, f'Error al eliminar el dispositivo: {str(e)}')
     return redirect('listDispositivo')
 
 def searchDispositivo(request):

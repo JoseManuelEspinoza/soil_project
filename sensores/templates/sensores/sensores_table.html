@@ -1,38 +1,71 @@
-
 {% if sensores %}
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Tipo</th>
-            <th>Modelo</th>
-            <th>Precision</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for sensor in sensores %}
-        <tr>
-            <td>{{ sensor.id }}</td>
-            <td>{{ sensor.nombre}}</td>
-            <td>{{ sensor.tipo }}</td>
-            <td>{{ sensor.modelo }}</td>
-            <td>{{ sensor.precision }}</td>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped align-middle text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Modelo</th>
+                <th>Precisión</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sensor in sensores %}
+            <tr>
+                <td>{{ sensor.id }}</td>
+                <td>{{ sensor.nombre }}</td>
+                <td>{{ sensor.tipo }}</td>
+                <td>{{ sensor.modelo }}</td>
+                <td>{{ sensor.precision }}</td>
+                <td>
+                    <a href="{% url 'editSensor' sensor.id %}" class="btn btn-primary btn-sm shadow-sm action-btn" title="Editar">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <button class="btn btn-danger btn-sm shadow-sm action-btn" title="Eliminar" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ sensor.id }}">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
-            <td>
-                <a href="{% url 'editSensor' sensor.id %}">
-                    <button>Editar</button>
-                </a>
-            </td>
-            <td>
-                <form method="POST" action="{% url 'deleteSensor' sensor.id %}" style="display:inline;">
+<!-- Modal de confirmación -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirmar Eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que deseas eliminar este sensor?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form id="deleteForm" method="POST" action="">
                     {% csrf_token %}
-                    <button type="submit" style="background-color: red; color: white;">Eliminar</button>
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
                 </form>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% else %}
-<p>No hay Sensores disponibles</p>
+<p class="text-center text-muted">No hay Sensores disponibles</p>
 {% endif %}
+
+<script>
+    // Asignar ID al formulario de confirmación de eliminación
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const sensorId = button.getAttribute('data-id');
+        const deleteForm = document.getElementById('deleteForm');
+        deleteForm.action = `/sensores/delete/${sensorId}/`;
+    });
+</script>

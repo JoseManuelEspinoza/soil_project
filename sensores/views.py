@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from .models import Sensor
 from .forms import SensorForm
 from bson import ObjectId
+from django.contrib import messages
 
 # Create your views here.
 def createSensor(request):
@@ -9,6 +10,7 @@ def createSensor(request):
         form = SensorForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request,'El sensor se ha guardado correctamente')
             return redirect('listSensor')
     else:
         form = SensorForm()
@@ -28,6 +30,7 @@ def editSensor(request,id):
         form=SensorForm(request.POST,instance=sensor)
         if form.is_valid():
             form.save()
+            messages.success(request,'El sensor se ha actualizado correctamente')
             return redirect('listSensor')
     else:
         form=SensorForm(instance=sensor)
@@ -37,6 +40,7 @@ def deleteSensor(request,id):
     object_id=ObjectId(id)
     sensor=Sensor.objects.get(id=object_id)
     sensor.delete()
+    messages.success(request,'El sensor se ha eliminado correctamente')
     return redirect('listSensor')
 
 def searchSensor(request):

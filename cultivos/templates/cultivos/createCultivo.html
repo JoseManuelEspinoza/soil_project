@@ -4,60 +4,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Cultivo</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f9;
-        }
-        h1 {
-            color: #333;
-        }
-        form {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-        input, select, button {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            margin-top: 20px;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    {% extends 'cultivos/base.html' %}
     {% block content %}
-    <h1>Crear Nuevo Cultivo</h1>
-    <form method="post" action="">
-        {% csrf_token %}
-        <!-- Renderiza el formulario de Django -->
-        {{ form.as_p }}
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>Crear Nuevo Cultivo</h1>
+            <button type="button" class="btn-close" aria-label="Cerrar" onclick="window.location.href='{% url 'listCultivo' %}'"></button>
+        </div>
+        <form method="post" action="" class="needs-validation" novalidate>
+            {% csrf_token %}
 
-        <!-- Botón de envío -->
-        <button type="submit">Guardar Cultivo</button>
-    </form>
+            <!-- Campos del formulario -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="id_nombre_cultivo" class="form-label">Nombre del Cultivo</label>
+                    {{ form.nombre_cultivo }}
+                    <div class="invalid-feedback">
+                        Por favor, ingresa el nombre del cultivo.
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="id_ph_min" class="form-label">pH Mínimo</label>
+                    {{ form.ph_min }}
+                    <div class="invalid-feedback">
+                        Por favor, ingresa el pH mínimo.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="id_ph_max" class="form-label">pH Máximo</label>
+                    {{ form.ph_max }}
+                    <div class="invalid-feedback">
+                        Por favor, ingresa el pH máximo.
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="id_fosforo_min" class="form-label">Fósforo Mínimo</label>
+                    {{ form.fosforo_min }}
+                    <div class="invalid-feedback">
+                        Por favor, ingresa el fósforo mínimo.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="id_fosforo_max" class="form-label">Fósforo Máximo</label>
+                    {{ form.fosforo_max }}
+                    <div class="invalid-feedback">
+                        Por favor, ingresa el fósforo máximo.
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="id_potasio_min" class="form-label">Potasio Mínimo</label>
+                    {{ form.potasio_min }}
+                    <div class="invalid-feedback">
+                        Por favor, ingresa el potasio mínimo.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="id_potasio_max" class="form-label">Potasio Máximo</label>
+                    {{ form.potasio_max }}
+                    <div class="invalid-feedback">
+                        Por favor, ingresa el potasio máximo.
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="id_nitrogeno_min" class="form-label">Nitrógeno Mínimo</label>
+                    {{ form.nitrogeno_min }}
+                    <div class="invalid-feedback">
+                        Por favor, ingresa el nitrógeno mínimo.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="id_nitrogeno_max" class="form-label">Nitrógeno Máximo</label>
+                    {{ form.nitrogeno_max }}
+                    <div class="invalid-feedback">
+                        Por favor, ingresa el nitrógeno máximo.
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="id_conductividad_min" class="form-label">Conductividad Mínima</label>
+                    {{ form.conductividad_min }}
+                    <div class="invalid-feedback">
+                        Por favor, ingresa la conductividad mínima.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="id_conductividad_max" class="form-label">Conductividad Máxima</label>
+                    {{ form.conductividad_max }}
+                    <div class="invalid-feedback">
+                        Por favor, ingresa la conductividad máxima.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Botones de acción -->
+            <div class="d-flex justify-content-end gap-2 mt-4">
+                <button type="button" class="btn btn-secondary" onclick="window.location.href='{% url 'listCultivo' %}'">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar Cultivo</button>
+            </div>
+        </form>
+    </div>
     {% endblock %}
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Validación de Bootstrap
+    (function () {
+        'use strict';
+        const forms = document.querySelectorAll('.needs-validation');
+        Array.prototype.slice.call(forms).forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+</script>
 </html>

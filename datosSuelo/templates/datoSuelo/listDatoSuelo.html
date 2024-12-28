@@ -1,0 +1,40 @@
+{% extends 'soil_project/base.html' %}
+
+{% block title %}Datos del Suelo{% endblock %}
+
+{% block content %}
+<h2>Datos del Suelo</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Fecha</th>
+        <th>Nitrógeno</th>
+        <th>Potasio</th>
+        <th>Fósforo</th>
+        <th>pH</th>
+        <th>Conductividad</th>
+    </tr>
+    {% for dato in datos_suelo %}
+    <tr>
+        <td>{{ dato.id }}</td>
+        <td>{{ dato.fecha }}</td>
+        <td>{{ dato.nitrogeno }}</td>
+        <td>{{ dato.potasio }}</td>
+        <td>{{ dato.fosforo }}</td>
+        <td>{{ dato.ph }}</td>
+        <td>{{ dato.conductividad }}</td>
+        <td><a href="{% url 'editDatoSuelo' dato.id %}"> <button>editar</button></a></td>
+        <td>
+            <form method="POST" action="{% url 'deleteDatoSuelo' dato.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" style="background-color: red; color: white;">Eliminar</button>
+            </form>
+    </tr>
+   
+    
+    {% endfor %}
+</table>
+{% if datos_suelo|length == 0 %}
+<p>No hay datos disponibles.</p>
+{% endif %}
+{% endblock %}

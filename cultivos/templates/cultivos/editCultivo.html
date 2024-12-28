@@ -1,6 +1,109 @@
-<h2>Editar cultivo</h2>
-<form method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">Guardar cambios</button>
-</form>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Cultivo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    {% block content %}
+    <div class="container mt-5">
+        <!-- Mensaje de confirmación -->
+        {% if messages %}
+        <div class="mb-4">
+            {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Encabezado -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="text-center fw-bold w-100">Editar Cultivo</h1>
+            <button type="button" class="btn-close" aria-label="Cerrar" onclick="window.location.href='{% url 'listCultivo' %}'"></button>
+        </div>
+
+        <!-- Formulario -->
+        <form method="post" action="" class="needs-validation" novalidate>
+            {% csrf_token %}
+
+            <!-- Campos del formulario -->
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="id_nombre_cultivo" class="form-label fw-semibold">Nombre del Cultivo</label>
+                    {{ form.nombre_cultivo }}
+                </div>
+                <div class="col-md-6">
+                    <label for="id_ph_min" class="form-label fw-semibold">pH Mínimo</label>
+                    {{ form.ph_min }}
+                </div>
+                <div class="col-md-6">
+                    <label for="id_ph_max" class="form-label fw-semibold">pH Máximo</label>
+                    {{ form.ph_max }}
+                </div>
+                <div class="col-md-6">
+                    <label for="id_fosforo_min" class="form-label fw-semibold">Fósforo Mínimo</label>
+                    {{ form.fosforo_min }}
+                </div>
+                <div class="col-md-6">
+                    <label for="id_fosforo_max" class="form-label fw-semibold">Fósforo Máximo</label>
+                    {{ form.fosforo_max }}
+                </div>
+                <div class="col-md-6">
+                    <label for="id_potasio_min" class="form-label fw-semibold">Potasio Mínimo</label>
+                    {{ form.potasio_min }}
+                </div>
+                <div class="col-md-6">
+                    <label for="id_potasio_max" class="form-label fw-semibold">Potasio Máximo</label>
+                    {{ form.potasio_max }}
+                </div>
+                <div class="col-md-6">
+                    <label for="id_nitrogeno_min" class="form-label fw-semibold">Nitrógeno Mínimo</label>
+                    {{ form.nitrogeno_min }}
+                </div>
+                <div class="col-md-6">
+                    <label for="id_nitrogeno_max" class="form-label fw-semibold">Nitrógeno Máximo</label>
+                    {{ form.nitrogeno_max }}
+                </div>
+                <div class="col-md-6">
+                    <label for="id_conductividad_min" class="form-label fw-semibold">Conductividad Mínima</label>
+                    {{ form.conductividad_min }}
+                </div>
+                <div class="col-md-6">
+                    <label for="id_conductividad_max" class="form-label fw-semibold">Conductividad Máxima</label>
+                    {{ form.conductividad_max }}
+                </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="d-flex justify-content-end gap-3 mt-4">
+                <button type="button" class="btn btn-secondary px-4" onclick="window.location.href='{% url 'listCultivo' %}'">Cancelar</button>
+                <button type="submit" class="btn btn-primary px-4">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+    
+    {% endblock %}
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Validación de Bootstrap
+    (function () {
+        'use strict';
+        const forms = document.querySelectorAll('.needs-validation');
+        Array.prototype.slice.call(forms).forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+</script>
+</html>

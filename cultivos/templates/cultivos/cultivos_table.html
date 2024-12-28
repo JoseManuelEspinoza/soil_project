@@ -1,7 +1,5 @@
-
-{% if cultivos %}
-<table>
-    <thead>
+<table class="table table-bordered table-striped align-middle text-center">
+    <thead class="table-dark">
         <tr>
             <th>ID</th>
             <th>Nombre del Cultivo</th>
@@ -34,20 +32,14 @@
             <td>{{ cultivo.conductividad_min }}</td>
             <td>{{ cultivo.conductividad_max }}</td>
             <td>
-                <a href="{% url 'editCultivo' cultivo.id %}">
-                    <button>Editar</button>
+                <a href="{% url 'editCultivo' cultivo.id %}" class="btn btn-primary btn-sm shadow-sm action-btn" title="Editar">
+                    <i class="bi bi-pencil-square"></i>
                 </a>
-            </td>
-            <td>
-                <form method="POST" action="{% url 'deleteCultivo' cultivo.id %}" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit" style="background-color: red; color: white;">Eliminar</button>
-                </form>
+                <a href="{% url 'deleteCultivo' cultivo.id %}" class="btn btn-danger btn-sm shadow-sm action-btn" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este cultivo?');">
+                    <i class="bi bi-trash"></i>
+                </a>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-{% else %}
-<p>No hay cultivos disponibles.</p>
-{% endif %}
